@@ -1,7 +1,9 @@
 <%# bid_row
   - catalog_bidding
+  - hidden
 %>
-<tr>
+<% hidden ||= false %>
+<tr <%=raw 'style="display: none"' if hidden %> id="catalog_bidding_<%= catalog_bidding.id %>">
   <td>
     <%= catalog_bidding.user.email %>
   </td>

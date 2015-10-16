@@ -33,12 +33,18 @@ class CatalogBiddingsController < ApplicationController
         format.json { render :show, status: :created, location: @catalog_bidding }
         format.js do
           render js: %(
-            $('#new_bid').before('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding }}');
+            $('#new_bid').before('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true }}');
+            $('#catalog_bidding_#{@catalog_bidding.id}').show('slow');
           )
         end
       else
         format.html { render :new }
         format.json { render json: @catalog_bidding.errors, status: :unprocessable_entity }
+        format.js do
+          render js: %(
+            alert("#{view_context.j @catalog_bidding.errors.full_messages.join('. ') }");
+          )
+        end
       end
     end
   end
