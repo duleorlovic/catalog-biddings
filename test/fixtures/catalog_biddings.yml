@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  catalog_auction_id: 
+  user_id: 
+  offered_price: 1.5
+  offered_at: 2015-10-16 13:22:33
+
+two:
+  catalog_auction_id: 
+  user_id: 
+  offered_price: 1.5
+  offered_at: 2015-10-16 13:22:33

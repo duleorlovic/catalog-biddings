@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  catalog_id: 
+  initial_price: 1.5
+  is_active: false
+  expires_at: 2015-10-16 13:21:51
+
+two:
+  catalog_id: 
+  initial_price: 1.5
+  is_active: false
+  expires_at: 2015-10-16 13:21:51

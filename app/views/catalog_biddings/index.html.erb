@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Catalog Biddings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Catalog auction</th>
+      <th>User</th>
+      <th>Offered price</th>
+      <th>Offered at</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @catalog_biddings.each do |catalog_bidding| %>
+      <tr>
+        <td><%= catalog_bidding.catalog_auction %></td>
+        <td><%= catalog_bidding.user %></td>
+        <td><%= catalog_bidding.offered_price %></td>
+        <td><%= catalog_bidding.offered_at %></td>
+        <td><%= link_to 'Show', catalog_bidding %></td>
+        <td><%= link_to 'Edit', edit_catalog_bidding_path(catalog_bidding) %></td>
+        <td><%= link_to 'Destroy', catalog_bidding, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Catalog bidding', new_catalog_bidding_path %>

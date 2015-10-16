@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Catalog auction:</strong>
+  <%= @catalog_bidding.catalog_auction %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @catalog_bidding.user %>
+</p>
+
+<p>
+  <strong>Offered price:</strong>
+  <%= @catalog_bidding.offered_price %>
+</p>
+
+<p>
+  <strong>Offered at:</strong>
+  <%= @catalog_bidding.offered_at %>
+</p>
+
+<%= link_to 'Edit', edit_catalog_bidding_path(@catalog_bidding) %> |
+<%= link_to 'Back', catalog_biddings_path %>

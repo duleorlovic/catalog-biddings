@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Catalog:</strong>
+  <%= @catalog_auction.catalog %>
+</p>
+
+<p>
+  <strong>Initial price:</strong>
+  <%= @catalog_auction.initial_price %>
+</p>
+
+<p>
+  <strong>Is active:</strong>
+  <%= @catalog_auction.is_active %>
+</p>
+
+<p>
+  <strong>Expires at:</strong>
+  <%= @catalog_auction.expires_at %>
+</p>
+
+<%= link_to 'Edit', edit_catalog_auction_path(@catalog_auction) %> |
+<%= link_to 'Back', catalog_auctions_path %>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :catalog_biddings
+  resources :catalog_auctions
+  resources :catalogs
   resources :passwords, controller: "clearance/passwords", only: [:create, :new]
 resource :session, controller: "clearance/sessions", only: [:create]
 

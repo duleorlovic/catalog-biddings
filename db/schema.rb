@@ -11,7 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151016110401) do
+ActiveRecord::Schema.define(version: 20151016112233) do
+
+  create_table "catalog_auctions", force: :cascade do |t|
+    t.integer  "catalog_id"
+    t.float    "initial_price"
+    t.boolean  "is_active"
+    t.datetime "expires_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "catalog_auctions", ["catalog_id"], name: "index_catalog_auctions_on_catalog_id"
+
+  create_table "catalog_biddings", force: :cascade do |t|
+    t.integer  "catalog_auction_id"
+    t.integer  "user_id"
+    t.float    "offered_price"
+    t.datetime "offered_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "catalog_biddings", ["catalog_auction_id"], name: "index_catalog_biddings_on_catalog_auction_id"
+  add_index "catalog_biddings", ["user_id"], name: "index_catalog_biddings_on_user_id"
+
+  create_table "catalogs", force: :cascade do |t|
+    t.string   "title"
+    t.float    "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                     null: false

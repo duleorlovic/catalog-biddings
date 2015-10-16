@@ -1,0 +1,2 @@
+module CatalogAuctionsHelper
+end

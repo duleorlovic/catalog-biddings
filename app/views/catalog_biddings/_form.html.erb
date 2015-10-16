@@ -1,0 +1,33 @@
+<%= form_for(@catalog_bidding) do |f| %>
+  <% if @catalog_bidding.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@catalog_bidding.errors.count, "error") %> prohibited this catalog_bidding from being saved:</h2>
+
+      <ul>
+      <% @catalog_bidding.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :catalog_auction_id %><br>
+    <%= f.text_field :catalog_auction_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :offered_price %><br>
+    <%= f.text_field :offered_price %>
+  </div>
+  <div class="field">
+    <%= f.label :offered_at %><br>
+    <%= f.datetime_select :offered_at %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
