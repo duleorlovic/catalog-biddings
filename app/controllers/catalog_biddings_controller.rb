@@ -29,12 +29,17 @@ class CatalogBiddingsController < ApplicationController
 
     respond_to do |format|
       if @catalog_bidding.save
+        #message = { email: @catalog_bidding.user.email, price: @catalog_bidding.offered_price, offered_at: @catalog_bidding.offered_at.to_s}
         format.html { redirect_to @catalog_bidding, notice: 'Catalog bidding was successfully created.' }
         format.json { render :show, status: :created, location: @catalog_bidding }
         format.js do
           render js: %(
-            $('#new_bid').before('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true }}');
-            $('#catalog_bidding_#{@catalog_bidding.id}').show('slow');
+            //$('#new_bid').before('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true }}');
+           // $('#catalog_bidding_#{@catalog_bidding.id}').show('slow');
+            PUBNUB_demo.publish({
+                channel: 'catalog_auction_#{@catalog_bidding.catalog_auction.id}',
+                message: "#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true } }"
+            });
           )
         end
       else

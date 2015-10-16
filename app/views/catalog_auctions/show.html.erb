@@ -58,4 +58,30 @@
 </table>
 
 </div>
+<!-- View the Full Documentation. -->
+<!-- Include the PubNub Library -->
+<script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
+
+<!-- Instantiate PubNub -->
+<script type="text/javascript">
+
+    var PUBNUB_demo = PUBNUB.init({
+        publish_key: '<%= ENV.fetch("PUBNUB_PUBLIC_KEY") %>',
+        subscribe_key: '<%= ENV.fetch("PUBNUB_SUBSCRIBE_KEY") %>'
+    });
+
+    // Subscribe to the demo_tutorial channel
+    PUBNUB_demo.subscribe({
+        channel: 'catalog_auction_<%= @catalog_auction.id %>',
+        message: add_bid,
+    });
+    
+    function add_bid(m) {
+      var $new = $('#new_bid').before(m);
+      $('#new_bid').prev().show('slow');
+      console.log(m);
+    }
+</script>
+
+
 

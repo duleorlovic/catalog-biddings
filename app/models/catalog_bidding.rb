@@ -5,7 +5,7 @@ class CatalogBidding < ActiveRecord::Base
 
   def need_to_be_greater
     max = catalog_auction.catalog_biddings.map(&:offered_price).max
-    if max.to_i > offered_price.to_i
+    if max.to_i >= offered_price.to_i
       errors.add(:offered_price, "should be greater than #{max}")
     end
   end
