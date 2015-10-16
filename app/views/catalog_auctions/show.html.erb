@@ -2,7 +2,7 @@
 
 <p>
   <strong>Catalog:</strong>
-  <%= @catalog_auction.catalog %>
+  <%= @catalog_auction.catalog.title %>
 </p>
 
 <p>
@@ -20,5 +20,24 @@
   <%= @catalog_auction.expires_at %>
 </p>
 
-<%= link_to 'Edit', edit_catalog_auction_path(@catalog_auction) %> |
-<%= link_to 'Back', catalog_auctions_path %>
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Offered price</th>
+      <th>Offered at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @catalog_auction.catalog_biddings.each do |cb| %>
+      <%= render partial: "bid_row", locals: { catalog_bidding: cb } %>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= form_for @catalog_auction.catalog_biddings.new, remote: true do |f| %>
+  <%= f.hidden_field :catalog_auction_id %>
+  <%= f.text_field :offered_price %>
+  <%= f.submit "Bid" %>
+<% end %>

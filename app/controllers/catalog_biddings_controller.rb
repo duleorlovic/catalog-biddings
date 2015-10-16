@@ -24,12 +24,18 @@ class CatalogBiddingsController < ApplicationController
   # POST /catalog_biddings
   # POST /catalog_biddings.json
   def create
-    @catalog_bidding = CatalogBidding.new(catalog_bidding_params)
+    @catalog_bidding = current_user.catalog_biddings.new(catalog_bidding_params)
+    @catalog_bidding.offered_at = Time.now
 
     respond_to do |format|
       if @catalog_bidding.save
         format.html { redirect_to @catalog_bidding, notice: 'Catalog bidding was successfully created.' }
         format.json { render :show, status: :created, location: @catalog_bidding }
+        format.js do
+          render js: %(
+            $('tbody').append('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding }}');
+          )
+        end
       else
         format.html { render :new }
         format.json { render json: @catalog_bidding.errors, status: :unprocessable_entity }
