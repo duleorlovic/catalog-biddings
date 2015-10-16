@@ -67,7 +67,10 @@
 
     var PUBNUB_demo = PUBNUB.init({
         publish_key: '<%= ENV.fetch("PUBNUB_PUBLIC_KEY") %>',
-        subscribe_key: '<%= ENV.fetch("PUBNUB_SUBSCRIBE_KEY") %>'
+        subscribe_key: '<%= ENV.fetch("PUBNUB_SUBSCRIBE_KEY") %>',
+        <%# https://www.pubnub.com/community/discussion/623/javascript-https-problem %>
+        ssl : (('https:' == document.location.protocol) ? true : false),
+
     });
 
     // Subscribe to the demo_tutorial channel
