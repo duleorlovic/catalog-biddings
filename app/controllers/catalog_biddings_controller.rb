@@ -33,7 +33,7 @@ class CatalogBiddingsController < ApplicationController
         format.json { render :show, status: :created, location: @catalog_bidding }
         format.js do
           render js: %(
-            $('tbody').append('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding }}');
+            $('#new_bid').before('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding }}');
           )
         end
       else

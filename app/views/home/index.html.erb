@@ -1,5 +1,17 @@
 <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>
+
+<strong>Latest auctions</strong>
+<ul>
+  <% CatalogAuction.all.each do |ca| %>
+    <li>
+      <%= link_to catalog_auction_path(ca),catalog_auction_path(ca) %>
+    </li>
+  <% end %>
+</ul>
+
+Admin:
+<br>
 <%= link_to catalogs_path, catalogs_path %>
 <br>
 <%= link_to catalog_auctions_path, catalog_auctions_path %>

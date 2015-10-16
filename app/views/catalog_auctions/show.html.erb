@@ -20,7 +20,8 @@
   <%= @catalog_auction.expires_at %>
 </p>
 
-<table>
+<div class="list">
+<table class="tables">
   <thead>
     <tr>
       <th>Email</th>
@@ -32,12 +33,29 @@
     <% @catalog_auction.catalog_biddings.each do |cb| %>
       <%= render partial: "bid_row", locals: { catalog_bidding: cb } %>
     <% end %>
+    <tr id="new_bid">
+      <% if current_user %>
+        <td>
+          <%= current_user.email %>
+        </td>
+        <td colspan="2" >
+        <%= form_for @catalog_auction.catalog_biddings.new, remote: true do |f| %>
+          <%= f.hidden_field :catalog_auction_id %>
+          <%= f.text_field :offered_price %>
+          <%= f.submit "Bid" %>
+        <% end %>
+        </td>
+      <% else %>
+        <td colspan="3">
+          <%= link_to "Sign in", sign_in_path %>
+          or
+          <%= link_to "Sign up", sign_up_path %>
+          to place a bid
+        </td>
+      <% end %>
+    </tr>
   </tbody>
 </table>
 
+</div>
 
-<%= form_for @catalog_auction.catalog_biddings.new, remote: true do |f| %>
-  <%= f.hidden_field :catalog_auction_id %>
-  <%= f.text_field :offered_price %>
-  <%= f.submit "Bid" %>
-<% end %>
