@@ -17,7 +17,8 @@
 
 <p>
   <strong>Expires at:</strong>
-  <%= @catalog_auction.expires_at %>
+  <%= @catalog_auction.expires_at.to_s :my_time %>
+  <abbr class="timeago" title="<%= @catalog_auction.expires_at.to_time.iso8601 %>"><%= @catalog_auction.expires_at.to_s :my_time %><abbr>
 </p>
 <div class="new_bid">
 <% if current_user %>
@@ -39,20 +40,8 @@
   <% end %>
 </div>
 
-<!-- View the Full Documentation. -->
-<!-- Include the PubNub Library -->
-<script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
-
 <!-- Instantiate PubNub -->
 <script type="text/javascript">
-
-    var PUBNUB_demo = PUBNUB.init({
-        publish_key: '<%= ENV.fetch("PUBNUB_PUBLIC_KEY") %>',
-        subscribe_key: '<%= ENV.fetch("PUBNUB_SUBSCRIBE_KEY") %>',
-        <%# https://www.pubnub.com/community/discussion/623/javascript-https-problem %>
-        ssl : (('https:' == document.location.protocol) ? true : false),
-
-    });
 
     // Subscribe to the demo_tutorial channel
     PUBNUB_demo.subscribe({
