@@ -13,7 +13,7 @@
           <p><%= catalog_bidding.user.email %></p>
         </div>
         <div class="post-time">
-          <p><i class="glyphicon glyphicon-time"></i><%= catalog_bidding.offered_at %></p>
+          <p><i class="glyphicon glyphicon-time"></i><abbr class="timeago" title="<%= catalog_bidding.offered_at.to_time.iso8601 %>"><%= catalog_bidding.offered_at.to_s :my_time %></abbr></p>
         </div>
       </div>
     </div>
@@ -22,3 +22,6 @@
     </div>
   </div>   
 </div>  
+<script>
+  jQuery("abbr.timeago").timeago();
+</script>

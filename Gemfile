@@ -63,3 +63,5 @@ gem 'rails_12factor', group: :production
 #gem "boostrap-sass"
 gem 'bootstrap-sass', :git => 'https://github.com/twbs/bootstrap-sass.git', :branch => 'next'
 
+gem "browser-timezone-rails"
+

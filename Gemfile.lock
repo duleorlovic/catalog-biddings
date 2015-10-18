@@ -52,6 +52,9 @@ GEM
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    browser-timezone-rails (0.0.8)
+      jquery-rails
+      rails (>= 3.1)
     builder (3.2.2)
     bullet (4.14.9)
       activesupport (>= 3.0.0)
@@ -177,6 +180,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap-sass!
+  browser-timezone-rails
   bullet
   byebug
   clearance
