@@ -55,11 +55,6 @@ group :development do
   #gem "irbtools"
   gem "interactive_editor"
 end
-
-# css mixin library http://bourbon.io/
-gem "bourbon"
-gem "neat"
-
 gem 'clearance'
 
 gem 'rails_12factor', group: :production
