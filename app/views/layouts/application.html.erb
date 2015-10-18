@@ -9,6 +9,7 @@
 <body>
 
 
+<%= link_to "Home", root_path %>
 <% if signed_in? %>
   <%= current_user.email %>
   <%= button_to "Sign out", sign_out_path, method: :delete %>

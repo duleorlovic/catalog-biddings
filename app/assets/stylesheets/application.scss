@@ -1,20 +1,6 @@
+// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
+@import "bootstrap-sprockets";
+@import "bootstrap";
 
-@import "bourbon";
-@import "base/base"; // this is http://bitters.bourbon.io/
-@import "neat";
 
-.container {
-  @include span-columns(10);
-  @include shift(1);
-  .list {
-    @include span-columns(10);
-    @include shift(1);
-
-    table {
-      input {
-        width: inherit;
-        display: inline;
-      }
-    }
-  }
-}
+@import "catalog_auctions.scss";

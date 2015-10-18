@@ -1,16 +1,24 @@
-<%# bid_row
+<%# bid
   - catalog_bidding
   - hidden
 %>
 <% hidden ||= false %>
-<tr <%=raw 'style="display: none"' if hidden %> id="catalog_bidding_<%= catalog_bidding.id %>">
-  <td>
-    <%= catalog_bidding.user.email %>
-  </td>
-  <td>
-    <%= catalog_bidding.offered_price %>
-  </td>
-  <td>
-    <%= catalog_bidding.offered_at %>
-  </td>
-</tr>
+<div class="message-item" <%=raw 'style="display:none"' if hidden %>>
+  <div class="message-inner">
+    <div class="message-head clearfix">
+      <div class="message-icon pull-left"><a href="#"><i class="glyphicon glyphicon-check"></i></a></div>
+      <div class="user-detail">
+        <h5 class="handle"><%= catalog_bidding.offered_price %></h5>
+        <div class="post-type">
+          <p><%= catalog_bidding.user.email %></p>
+        </div>
+        <div class="post-time">
+          <p><i class="glyphicon glyphicon-time"></i><%= catalog_bidding.offered_at %></p>
+        </div>
+      </div>
+    </div>
+    <div class="qa-message-content">
+      <p>Admin created Blah Blah Blah, project, as part of the Campaign.</p>
+    </div>
+  </div>   
+</div>  

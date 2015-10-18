@@ -58,3 +58,8 @@ end
 gem 'clearance'
 
 gem 'rails_12factor', group: :production
+
+# twitter boostrap sass https://github.com/twbs/bootstrap-sass
+#gem "boostrap-sass"
+gem 'bootstrap-sass', :git => 'https://github.com/twbs/bootstrap-sass.git', :branch => 'next'
+

@@ -19,45 +19,26 @@
   <strong>Expires at:</strong>
   <%= @catalog_auction.expires_at %>
 </p>
-
-<div class="list">
-<table class="tables">
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Offered price</th>
-      <th>Offered at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @catalog_auction.catalog_biddings.each do |cb| %>
-      <%= render partial: "bid_row", locals: { catalog_bidding: cb } %>
-    <% end %>
-    <tr id="new_bid">
-      <% if current_user %>
-        <td>
-          <%= current_user.email %>
-        </td>
-        <td colspan="2" >
-        <%= form_for @catalog_auction.catalog_biddings.new, remote: true do |f| %>
-          <%= f.hidden_field :catalog_auction_id %>
-          <%= f.text_field :offered_price %>
-          <%= f.submit "Bid" %>
-        <% end %>
-        </td>
-      <% else %>
-        <td colspan="3">
-          <%= link_to "Sign in", sign_in_path %>
-          or
-          <%= link_to "Sign up", sign_up_path %>
-          to place a bid
-        </td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
-
+<div class="new_bid">
+<% if current_user %>
+  <%= current_user.email %>
+  <%= form_for CatalogBidding.new( catalog_auction: @catalog_auction), remote: true do |f| %>
+    <%= f.hidden_field :catalog_auction_id %>
+    <%= f.text_field :offered_price %>
+    <%= f.submit "Bid" %>
+  <% end %>
+<% else %>
+    <%= link_to "Sign in", sign_in_path %>
+    or
+    <%= link_to "Sign up", sign_up_path %>
+    to place a bid
+<% end %>
+<div class="qa-message-list" id="wallmessages">
+  <% @catalog_auction.catalog_biddings.each do |cb| %>
+    <%= render partial: "bid_row", locals: { catalog_bidding: cb } %>
+  <% end %>
 </div>
+
 <!-- View the Full Documentation. -->
 <!-- Include the PubNub Library -->
 <script src="https://cdn.pubnub.com/pubnub-dev.js"></script>
@@ -80,8 +61,8 @@
     });
     
     function add_bid(m) {
-      var $new = $('#new_bid').before(m);
-      $('#new_bid').prev().show('slow');
+      var $new = $('#wallmessages').prepend(m);
+      $('#wallmessages').children().first().show('slow');
       console.log(m);
     }
 </script>
