@@ -21,6 +21,17 @@ class CatalogBiddingsController < ApplicationController
   def edit
   end
 
+  # GET /catalog_biddings  params :last_bid, :catalog_auction
+  def get_new
+    catalog_auction = CatalogAuction.find params[:catalog_auction]
+    if params[:last_bid].present?
+      last_bid = catalog_auction.catalog_biddings.find params[:last_bid]
+      @new_bids = catalog_auction.catalog_biddings.where( 'offered_at > ?', last_bid.offered_at)
+    else
+      @new_bids = catalog_auction.catalog_biddings
+    end
+  end
+
   # POST /catalog_biddings
   # POST /catalog_biddings.json
   def create
@@ -32,25 +43,11 @@ class CatalogBiddingsController < ApplicationController
         #message = { email: @catalog_bidding.user.email, price: @catalog_bidding.offered_price, offered_at: @catalog_bidding.offered_at.to_s}
         format.html { redirect_to @catalog_bidding, notice: 'Catalog bidding was successfully created.' }
         format.json { render :show, status: :created, location: @catalog_bidding }
-        format.js do
-          render js: %(
-            //$('#new_bid').before('#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true }}');
-           // $('#catalog_bidding_#{@catalog_bidding.id}').show('slow');
-            PUBNUB_demo.publish({
-                channel: 'catalog_auction_#{@catalog_bidding.catalog_auction.id}',
-                message: "#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true } }",
-              callback: function(m){ console.log("publish_callbak"+m) },
-            });
-          )
-        end
+        format.js
       else
         format.html { render :new }
         format.json { render json: @catalog_bidding.errors, status: :unprocessable_entity }
-        format.js do
-          render js: %(
-            alert("#{view_context.j @catalog_bidding.errors.full_messages.join('. ') }");
-          )
-        end
+        format.js
       end
     end
   end

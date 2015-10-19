@@ -39,6 +39,7 @@
 <% else %>
   Auction expired.
 <% end %>
+<%= link_to "Refresh", "#", id: "refresh" %>
 <div class="qa-message-list" id="wallmessages">
   <% @catalog_auction.catalog_biddings.each do |cb| %>
     <%= render partial: "bid_row", locals: { catalog_bidding: cb } %>
@@ -83,5 +84,23 @@ var clock = $('.your-clock').FlipClock(
   });
 </script>
 
+<script>
+$('#refresh').click(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "<%= get_new_catalog_biddings_path %>",
+      dataType: "script",
+      data: {
+          last_bid: $('[data-bid]').first().data('bid'),
+          catalog_auction: <%= @catalog_auction.id %>,
+        },
+      });
+});
 
+setInterval(function(){ 
+    $('#refresh').click(); 
+    console.log("refresh");
+    }, 3000);
+ 
+</script>
 

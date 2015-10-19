@@ -3,7 +3,7 @@
   - hidden
 %>
 <% hidden ||= false %>
-<div class="message-item" <%=raw 'style="display:none"' if hidden %>>
+<div class="message-item" <%=raw 'style="display:none"' if hidden %> data-bid=<%= catalog_bidding.id %>>
   <div class="message-inner">
     <div class="message-head clearfix">
       <div class="message-icon pull-left"><a href="#"><i class="glyphicon glyphicon-check"></i></a></div>

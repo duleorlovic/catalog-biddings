@@ -1,0 +1,3 @@
+<% @new_bids.each do |catalog_bidding| %>
+  add_bid('<%= j render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: catalog_bidding, hidden: true } %>'); 
+<% end %>
