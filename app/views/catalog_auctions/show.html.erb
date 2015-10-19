@@ -18,21 +18,26 @@
 <p>
   <strong>Expires at:</strong>
   <%= @catalog_auction.expires_at.to_s :my_time %>
-  <abbr class="timeago" title="<%= @catalog_auction.expires_at.to_time.iso8601 %>"><%= @catalog_auction.expires_at.to_s :my_time %><abbr>
 </p>
-<div class="new_bid">
-<% if current_user %>
-  <%= current_user.email %>
-  <%= form_for CatalogBidding.new( catalog_auction: @catalog_auction), remote: true do |f| %>
-    <%= f.hidden_field :catalog_auction_id %>
-    <%= f.text_field :offered_price %>
-    <%= f.submit "Bid" %>
-  <% end %>
+<% if @catalog_auction.expires_at > Time.now %>
+  <div class="your-clock"></div>
+  <div id="new_bid">
+    <% if current_user %>
+      <%= current_user.email %>
+      <%= form_for CatalogBidding.new( catalog_auction: @catalog_auction), remote: true do |f| %>
+        <%= f.hidden_field :catalog_auction_id %>
+        <%= f.text_field :offered_price %>
+        <%= f.submit "Bid" %>
+      <% end %>
+    <% else %>
+        <%= link_to "Sign in", sign_in_path %>
+        or
+        <%= link_to "Sign up", sign_up_path %>
+        to place a bid
+    <% end %>
+  </div>
 <% else %>
-    <%= link_to "Sign in", sign_in_path %>
-    or
-    <%= link_to "Sign up", sign_up_path %>
-    to place a bid
+  Auction expired.
 <% end %>
 <div class="qa-message-list" id="wallmessages">
   <% @catalog_auction.catalog_biddings.each do |cb| %>
@@ -47,13 +52,35 @@
     PUBNUB_demo.subscribe({
         channel: 'catalog_auction_<%= @catalog_auction.id %>',
         message: add_bid,
+        connect: pub,
     });
     
     function add_bid(m) {
       var $new = $('#wallmessages').prepend(m);
       $('#wallmessages').children().first().show('slow');
-      console.log(m);
+      console.log("add_bid "+m);
     }
+    function pub() {
+       console.log("Since we’re publishing on subscribe connectEvent, we’re sure we’ll receive the following publish.");
+       PUBNUB_demo.publish({                                    
+            channel : "catalog_auction_<%= @catalog_auction.id %>",
+            message : "Hello from PubNub Docs!",
+            callback: function(m){ console.log("connect_publish_callbak "+m) }
+       })
+    }
+</script>
+<script>
+<%# http://flipclockjs.com/ %>
+var clock = $('.your-clock').FlipClock(
+  <%= (@catalog_auction.expires_at - Time.now).to_i %>,
+  {
+   countdown: true,
+    callbacks: {
+      stop: function() {
+      $('#new_bid').html('Auction expired!');
+      }
+    }
+  });
 </script>
 
 

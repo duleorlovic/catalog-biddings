@@ -38,7 +38,8 @@ class CatalogBiddingsController < ApplicationController
            // $('#catalog_bidding_#{@catalog_bidding.id}').show('slow');
             PUBNUB_demo.publish({
                 channel: 'catalog_auction_#{@catalog_bidding.catalog_auction.id}',
-                message: "#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true } }"
+                message: "#{view_context.j view_context.render partial: 'catalog_auctions/bid_row', locals: { catalog_bidding: @catalog_bidding, hidden: true } }",
+              callback: function(m){ console.log("publish_callbak"+m) },
             });
           )
         end
